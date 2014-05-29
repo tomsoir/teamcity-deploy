@@ -1,6 +1,6 @@
 /*
- * grunt-teamcityDeploy
- * https://github.com/tomsoir/teamcityDeploy
+ * grunt-teamcity-deploy
+ * https://github.com/tomsoir/teamcity-deploy
  *
  * Copyright (c) 2014 Artem Tkachenko
  * Licensed under the MIT license.
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    teamcityDeploy: {
+    teamcity-deploy: {
       default_options: {
         options: {
         },
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'teamcityDeploy', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'teamcity-deploy', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);

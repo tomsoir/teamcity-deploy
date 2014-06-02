@@ -22,7 +22,7 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
-exports.teamcity-deploy = {
+exports.teamcity_deploy = {
   setUp: function(done) {
     // setup here if necessary
     done();

@@ -17,73 +17,95 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-teamcity-deploy');
 ```
 
-## The "teamcity-deploy" task
+## Custom "teamcity-deploy" task
 
 ### Overview
-In your project's Gruntfile, add a section named `teamcity-deploy` to the data object passed into `grunt.initConfig()`.
+There are 2 part of auto-deploy task:
+
+Part 1 (deploy on team-city)
+     command:
+         ```js
+         $ grunt deploy:development:[env]  
+         ```
+         where [env] is: dev, stb, nxt, cli, *
+     example command:
+         $ grunt deploy:development:nxt
+
+     targets:
+        — remove old pack dir and zip file inside
+        — make new pack dir
+        — compress project to new zip pack
+        — copy zip pack to auto-deploy server path (like so: /u03/deploy/dev/hoothoot/)
+        
+        — change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
+        — start server
+
+Part 2 (deploy on auto-build test server)
+    command:
+        ```js
+        $ grunt deploy:development
+        ```
+     targets:
+         — change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
+         — start server
+
+
+###  Grunt configuration:
 
 ```js
-grunt.initConfig({
-  teamcity-deploy: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-});
+grunt.initConfig
+    deploy:                                                          // deploy task
+         development:                                                // deploy:development configeration (it is just a task, and could be more then one) 
+             options:
+                 compress:
+                     dir: "packer"
+                     archive: "packer.zip"
+                     includes: '.'
+                     excludes: '.git/**\\*  node_modules/**\\*'
+                 copyTo: # full path will be: /u03/deploy/[env]/hoothoot/
+                     server: "/u03/deploy/"
+                     env: "*" 
+                     dir: "/hoothoot/"
+
+                 startServerTasks: ['connect:server']                // run server tasks 
 ```
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+#### compress
+compressing pack option
 
-A string value that is used to do something with whatever.
+##### dir
+compressing pack option
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+##### archive
+creating dir for copy zip pack
 
-A string value that is used to do something else with whatever else.
+##### includes
+path witch files/dirs include to zip pack
 
-### Usage Examples
+##### excludes
+path witch files/dirs NOT include to zip pack
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+#### copyTo
+where to copy for auto-deploy
+full path will be: /u03/deploy/[env]/hoothoot/ 
+where [env] may be: dev, stb, nxt, cli,
 
-```js
-grunt.initConfig({
-  teamcity-deploy: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
+##### server
+part of path to copy (part1: server)
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+##### env
+part of path to copy (part2: environment. It gets from run task, like so: grunt deploy:development:nxt )  
 
-```js
-grunt.initConfig({
-  teamcity-deploy: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
+##### dir
+part of path to copy (part3: dir or project)  
+
+#### startServerTasks
+run server tasks 
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+2014-06-02  v0.1.0   base task scheme created

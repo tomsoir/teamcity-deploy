@@ -24,7 +24,7 @@ There are 2 part of auto-deploy task:
 
 Part 1 (deploy on team-city)
      command:
-         ```js
+         ```bash
          $ grunt deploy:development:[env]  
          ```
          where [env] is: dev, stb, nxt, cli, *
@@ -36,13 +36,13 @@ Part 1 (deploy on team-city)
         — make new pack dir
         — compress project to new zip pack
         — copy zip pack to auto-deploy server path (like so: /u03/deploy/dev/hoothoot/)
-        
+
         — change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
         — start server
 
 Part 2 (deploy on auto-build test server)
     command:
-        ```js
+        ```bash
         $ grunt deploy:development
         ```
      targets:
@@ -62,7 +62,7 @@ grunt.initConfig
                      archive: "packer.zip"
                      includes: '.'
                      excludes: '.git/**\\*  node_modules/**\\*'
-                 copyTo: # full path will be: /u03/deploy/[env]/hoothoot/
+                 copyTo:                                              // full path will be: /u03/deploy/[env]/hoothoot/
                      server: "/u03/deploy/"
                      env: "*" 
                      dir: "/hoothoot/"

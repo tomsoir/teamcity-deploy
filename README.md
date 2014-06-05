@@ -43,30 +43,38 @@ $ grunt deploy:development:[env]
 where [env] is: dev, stb, nxt, cli, * 
 ([env] getting from TeamCity build-params)
 targets:
+```text
 — remove old pack dir and zip file inside
 — make new pack dir
 — compress project to new zip pack
 — copy zip pack to auto-deploy server path (like so: /u03/deploy/dev/hoothoot/)
+```
 
 ##### Task-2. Start for run tests on TeamCity 
 command:
 ```bash
 $ grunt deploy:development:tests
 ```
+
 targets:
+```text
 — change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
 — start server
 — run jasmin/sencha unit-tests throw phantomjs 
+```
 
 #### 2) Environment/Deployment/Client — for shows in browser
 ##### Task-1. Run on ENV
-command:
+
 ```bash
 $ grunt deploy:development
 ```
+
 targets:
+```text
 — change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
 — start server
+```
 
 ###  Grunt configuration:
 

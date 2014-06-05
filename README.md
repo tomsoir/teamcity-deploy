@@ -35,38 +35,38 @@ We have 2 TeamCity projects:
 
 #### 1) Development/Web/Client — just for run tests
 grunt tasks for it:
-    ##### Task-1. Copy to ENV from TeamCity 
-        ###### command:
+##### Task-1. Copy to ENV from TeamCity 
+command:
 ```bash
 $ grunt deploy:development:[env]
 ```
-            where [env] is: dev, stb, nxt, cli, * 
-            ([env] getting from TeamCity build-params)
-        ###### targets:
-            — remove old pack dir and zip file inside
-            — make new pack dir
-            — compress project to new zip pack
-            — copy zip pack to auto-deploy server path (like so: /u03/deploy/dev/hoothoot/)
+where [env] is: dev, stb, nxt, cli, * 
+([env] getting from TeamCity build-params)
+targets:
+— remove old pack dir and zip file inside
+— make new pack dir
+— compress project to new zip pack
+— copy zip pack to auto-deploy server path (like so: /u03/deploy/dev/hoothoot/)
 
-    ##### Task-2. Start for run tests on TeamCity 
-        ###### command:
+##### Task-2. Start for run tests on TeamCity 
+command:
 ```bash
 $ grunt deploy:development:tests
 ```
-        ###### targets:
-            — change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
-            — start server
-            — run jasmin/sencha unit-tests throw phantomjs 
+targets:
+— change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
+— start server
+— run jasmin/sencha unit-tests throw phantomjs 
 
 #### 2) Environment/Deployment/Client — for shows in browser
-    ##### Task-1. Run on ENV
-        ###### command:
+##### Task-1. Run on ENV
+command:
 ```bash
 $ grunt deploy:development
 ```
-        ###### targets:
-            — change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
-            — start server
+targets:
+— change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
+— start server
 
 ###  Grunt configuration:
 

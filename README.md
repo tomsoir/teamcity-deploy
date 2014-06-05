@@ -20,35 +20,53 @@ grunt.loadNpmTasks('grunt-teamcity-deploy');
 ## Custom "teamcity-deploy" task
 
 ### Overview
-There are 2 part of auto-deploy task:
+## There are 3 task for auto-deploying (contains 3 tasks):
 
-Part 1 (deploy on team-city)
-     command:
-         ```bash
-         $ grunt deploy:development:[env]  
-         ```
-         where [env] is: dev, stb, nxt, cli, *
-     example command:
-         $ grunt deploy:development:nxt
+```bash
+// 1) Copy zip-pack of project to ENV from TeamCity 
+$ grunt deploy:development:[env]
+// 2) Start web-server and unit-tests checking on TeamCity
+$ grunt deploy:development:tests
+// 3) Run web-server on ENV (without testing) for showing in browser
+$ grunt deploy:development
+```
 
-     targets:
-        — remove old pack dir and zip file inside
-        — make new pack dir
-        — compress project to new zip pack
-        — copy zip pack to auto-deploy server path (like so: /u03/deploy/dev/hoothoot/)
+## We have 2 TeamCity projects:
 
-        — change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
-        — start server
+# 1) Development/Web/Client — just for run tests
+grunt tasks for it:
+    Task-1. Copy to ENV from TeamCity 
+        command:
+            ```bash
+            $ grunt deploy:development:[env]
+            ```
+            where [env] is: dev, stb, nxt, cli, * 
+            ([env] getting from TeamCity build-params)
+        targets:
+            — remove old pack dir and zip file inside
+            — make new pack dir
+            — compress project to new zip pack
+            — copy zip pack to auto-deploy server path (like so: /u03/deploy/dev/hoothoot/)
 
-Part 2 (deploy on auto-build test server)
-    command:
-        ```bash
-        $ grunt deploy:development
-        ```
-     targets:
-         — change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
-         — start server
+    Task-2. Start for run tests on TeamCity 
+        command:
+            ```bash
+            $ grunt deploy:development:tests
+            ```
+        targets:
+            — change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
+            — start server
+            — run jasmin/sencha unit-tests throw phantomjs 
 
+# 2) Environment/Deployment/Client — for shows in browser
+    Task-1. Run on ENV
+        command:
+            ```bash
+            $ grunt deploy:development
+            ```
+        targets:
+            — change host of nodejs-server from 'localhost' to 'hs-ws-tkachenko.local' (by uname -n)
+            — start server
 
 ###  Grunt configuration:
 
@@ -108,4 +126,5 @@ run server tasks
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+2014-06-03  v0.1.5   final works tasks
 2014-06-02  v0.1.0   base task scheme created

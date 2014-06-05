@@ -20,7 +20,7 @@ grunt.loadNpmTasks('grunt-teamcity-deploy');
 ## Custom "teamcity-deploy" task
 
 ### Overview
-## There are 3 task for auto-deploying (contains 3 tasks):
+There are 3 task for auto-deploying (contains 3 tasks):
 
 ```bash
 // 1) Copy zip-pack of project to ENV from TeamCity 
@@ -31,9 +31,9 @@ $ grunt deploy:development:tests
 $ grunt deploy:development
 ```
 
-## We have 2 TeamCity projects:
+We have 2 TeamCity projects:
 
-# 1) Development/Web/Client — just for run tests
+1) Development/Web/Client — just for run tests
 grunt tasks for it:
     Task-1. Copy to ENV from TeamCity 
         command:
@@ -58,7 +58,7 @@ grunt tasks for it:
             — start server
             — run jasmin/sencha unit-tests throw phantomjs 
 
-# 2) Environment/Deployment/Client — for shows in browser
+2) Environment/Deployment/Client — for shows in browser
     Task-1. Run on ENV
         command:
             ```bash

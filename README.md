@@ -135,4 +135,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 2014-06-03  v0.1.5   final works tasks
+
 2014-06-02  v0.1.0   base task scheme created
